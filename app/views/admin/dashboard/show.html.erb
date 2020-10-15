@@ -1,2 +1,4 @@
-<h1>Admin::Dashboard#show</h1>
-<p>Find me in app/views/admin/dashboard/show.html.erb</p>
+<h1>Admin Dashboard</h1>
+<h2>Counts</h2>
+<p>Products: <%= link_to @stats[:product_count].to_s,  [:admin, :products] %></p>
+<p>Categories: <%= @stats[:category_count] %></p>
