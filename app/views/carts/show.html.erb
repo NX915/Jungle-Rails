@@ -6,7 +6,7 @@
 
   <% if cart.empty? %>
     <p class="alert alert-danger">Sorry, there is nothing in your cart.</p>
-    <button type="button" class="btn btn-secondary"> <%= link_to 'Home', :root %> </button>
+    <%= link_to 'Home', :root, class: 'btn btn-lg btn-primary'%>
 
   <% else %>
     <div class="panel panel-default items">
