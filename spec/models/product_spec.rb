@@ -5,23 +5,31 @@ RSpec.describe Product, type: :model do
 
     before do
       @category = Category.new ({name: 'test'})
+    end
+
+    it 'should allow input with name, price, category and quantity' do
       @product = @category.products.new({name: 'test product', price: 10, quantity: 1})
+      expect(@product).to be_valid
+    end
+    
+    it 'should enforce a name field' do
+      @product = @category.products.new({name: '', price: 10, quantity: 1})
+      expect(@product).to_not be_valid
     end
 
-    it 'should have a name field' do
-      expect(@product.name).to be_present
+    it 'should enforce a price field' do   
+      @product = @category.products.new({name: 'test product', price: nil, quantity: 1})   
+      expect(@product).to_not be_valid
     end
 
-    it 'should have a price field' do      
-      expect(@product.price).to be_present
+    it 'should enforce a quantity field' do 
+      @product = @category.products.new({name: 'test product', price: 10, quantity: nil})     
+      expect(@product).to_not be_valid
     end
 
-    it 'should have a quantity field' do      
-      expect(@product.quantity).to be_present
-    end
-
-    it 'should have a category field' do      
-      expect(@product.category).to be_present
+    it 'should enforce a category field' do  
+      @product = Product.new({name: 'test product', price: 10, quantity: 1})    
+      expect(@product).to_not be_valid
     end
   end
 end

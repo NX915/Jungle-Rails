@@ -9,6 +9,5 @@ class Product < ActiveRecord::Base
   validates :price, presence: true
   validates :quantity, presence: true
   validates :category, presence: true
-  validates :email, uniqueness: true
 
 end
