@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
+
   describe 'User Validations' do
 
     before do
@@ -44,6 +45,34 @@ RSpec.describe User, type: :model do
     it 'should enforce unique email' do
       @user = User.new ({first_name: 'first', last_name: 'last', email: 'test@test.com', password: '12345678', password_confirmation: '12345678'})
       expect(@user).to_not be_valid
+    end
+
+  end
+
+  describe '.authenticate_with_credentials' do
+
+    before do
+      User.create ({first_name: 'first', last_name: 'last', email: 'test@test.com', password: '12345678', password_confirmation: '12345678'})
+    end
+
+    it 'should allow login' do
+      @user = User.authenticate_with_credentials('test@test.com', '12345678')
+      expect(@user).to be_present
+    end
+
+    it 'should not allow incorrect password' do
+      @user = User.authenticate_with_credentials('test@test.com', '123456f78')
+      expect(@user).to_not be_present
+    end
+
+    it 'should allow login with white space in email' do
+      @user = User.authenticate_with_credentials(' test@test.com ', '12345678')
+      expect(@user).to be_present
+    end
+
+    it 'should allow login with different cases in email' do
+      @user = User.authenticate_with_credentials('tEst@tesT.com', '12345678')
+      expect(@user).to be_present
     end
 
   end
