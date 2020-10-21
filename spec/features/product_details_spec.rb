@@ -23,6 +23,7 @@ RSpec.feature "Visitor navigates to product detail", type: :feature, js: true do
     first(:link, 'Details »').click
 
     # DEBUG
+    sleep(1)
     save_screenshot 'test_product.png'
 
     # VERIFY
